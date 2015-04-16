@@ -1,2 +1,4 @@
 
-angular.module('calendarApp', ['calendarApp.calendar']);
+angular.module('calendarApp', ['calendarApp.calendar']).run(function ($rootScope) {
+
+});
