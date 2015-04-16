@@ -1,6 +1,6 @@
 <div class="calendar-container clearfix">
     <div class="top-bar">
-        {{month}}, {{year}}
+        {{month | convertToMonth}}, {{year}}
     </div>
     <div class="days-of-week">
         <div class="date">S</div>
@@ -12,6 +12,6 @@
         <div class="date">S</div>
     </div>
     <div class="dates clearfix">
-
+        <div ng-class="{'date': true, 'prev-month': date.month_type === 0, 'next-month': date.month_type === 2}" ng-repeat="date in dates">{{date.date}}</div>
     </div>
 </div>
