@@ -52,7 +52,7 @@ angular.module('calendar.directives', []).directive('calendar', function () {
 
 
     return {
-        templateUrl: 'partials/_calendar.html',
+        templateUrl: 'calendar/_calendar.html',
         scope: {
             month: '='
         },
