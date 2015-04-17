@@ -18,22 +18,22 @@ angular.module('calendar.directives', []).directive('calendar', function () {
 
         // get the remaining dates of the last month
         var prev_last_date = (new Date(curr_date.getFullYear(), curr_date.getMonth(), 0)).getDate();
-        for (var i = 0, len = 6 - first_day; i < len; i++) {
+        for (var i = 0, len = first_day; i < len; i++) {
             month.unshift(new CustomDate(prev_last_date - i, 0));
         }
-        console.log(month);
+        //console.log(month);
 
         // add dates for the current month
         for (i = 1, len = curr_last_date.getDate(); i <= len; i++) {
             month.push(new CustomDate(i, 1));
         }
-        console.log(month);
+        //console.log(month);
 
         // get the remaining dates of the next month
         for (i = 0, len = 6 - curr_last_day; i < len; i++) {
             month.push(new CustomDate(i + 1, 2));
         }
-        console.log(month);
+        //console.log(month);
 
         // return the month
         return month;
@@ -70,7 +70,39 @@ angular.module('calendar.directives', []).directive('calendar', function () {
 
                     var month_array = createMonthArray(new Date(scope.year, scope.month, 1));
                     scope.dates = month_array;
-                    console.log(scope.dates);
+                    //console.log(scope.dates);
+                    scope.$watch('month', function (newValue, oldValue) {
+                        var month_array = createMonthArray(new Date(scope.year, scope.month, 1));
+                        scope.dates = month_array;
+                    });
+
+                    element[0].firstElementChild.firstElementChild.firstElementChild.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var curr_month = scope.month - 1;
+                        scope.$apply(function () {
+                            if (curr_month < 0) {
+                                scope.month = 11;
+                                scope.year = scope.year - 1;
+                            } else {
+                                scope.month = curr_month;
+                            }
+                        });
+
+                    });
+                    element[0].firstElementChild.firstElementChild.lastElementChild.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var curr_month = scope.month + 1;
+                        scope.$apply(function () {
+                            if (curr_month > 11) {
+                                scope.month = 0;
+                                scope.year = scope.year + 1;
+                            } else {
+                                scope.month = curr_month;
+                            }
+                        });
+
+                    });
+
 
 
                 }
